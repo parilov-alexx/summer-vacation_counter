@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/ny-counter/static/css/main.adeca6c6.css",
+    "main.js": "/ny-counter/static/js/main.a9d816e4.js",
+    "static/media/september.jpg": "/ny-counter/static/media/september.d955ee4dce2ba59c44e9.jpg",
+    "static/media/june.jpg": "/ny-counter/static/media/june.8f66507d58fb0e9159d3.jpg",
+    "static/media/holiday.jpg": "/ny-counter/static/media/holiday.4d5f43c18b37f4c83c50.jpg",
+    "static/media/april.jpg": "/ny-counter/static/media/april.b4caf49f0c950d398e8e.jpg",
+    "static/media/january.jpg": "/ny-counter/static/media/january.b08b559f97023435b4a5.jpg",
+    "static/media/august.jpg": "/ny-counter/static/media/august.cd11adf27a504c1ad9a7.jpg",
+    "static/media/december.jpg": "/ny-counter/static/media/december.c5e7a3d66e1d304aa53b.jpg",
+    "static/media/march.jpg": "/ny-counter/static/media/march.ec82403fa3153bbee329.jpg",
+    "static/media/july.jpg": "/ny-counter/static/media/july.f743f961073a53287f12.jpg",
+    "static/media/may.jpg": "/ny-counter/static/media/may.f3117e259b7466b35350.jpg",
+    "static/media/february.jpg": "/ny-counter/static/media/february.e48ffb594e13396aabf7.jpg",
+    "static/media/october.jpg": "/ny-counter/static/media/october.7c4d63c8d76882c8c845.jpg",
+    "static/media/november.jpg": "/ny-counter/static/media/november.fe50fc670b8408c415f5.jpg",
+    "index.html": "/ny-counter/index.html",
+    "main.adeca6c6.css.map": "/ny-counter/static/css/main.adeca6c6.css.map",
+    "main.a9d816e4.js.map": "/ny-counter/static/js/main.a9d816e4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.adeca6c6.css",
+    "static/js/main.a9d816e4.js"
+  ]
+}
