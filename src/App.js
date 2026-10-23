@@ -95,68 +95,90 @@ const App = () => {
     }
   };
 
-  function calculateTimeLeft() {
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth(); // 0-11
-    
-    let targetDate;
-    let mode;
-    
-    // Определяем режим таймера
-    if (currentMonth >= 5 && currentMonth <= 7) { // Июнь-Август (5-7)
-      // Летние каникулы: отсчитываем до 1 сентября
-      mode = 'vacation';
-      targetDate = new Date(currentYear, 8, 1); // 1 сентября
-      
-      // Если уже сентябрь, переключаемся на следующий год
-      if (now >= targetDate) {
-        mode = 'summer';
-        targetDate = new Date(currentYear + 1, 5, 1); // 1 июня следующего года
-      }
-    } else {
-      // Не лето: отсчитываем до 1 июня
-      mode = 'summer';
-      targetDate = new Date(currentYear, 5, 1); // 1 июня
-      
-      // Если уже июнь, значит лето началось
-      if (now >= targetDate) {
-        mode = 'vacation';
-        targetDate = new Date(currentYear, 8, 1); // 1 сентября
-      }
-    }
-    
-    const difference = targetDate - now;
-    
-    // Если разница отрицательная (уже прошла целевая дата)
-    if (difference <= 0) {
-      // Пересчитываем для следующего периода
-      if (mode === 'summer') {
-        targetDate = new Date(currentYear + 1, 5, 1);
-        mode = 'summer';
-      } else {
-        targetDate = new Date(currentYear, 8, 1);
-        mode = 'vacation';
-      }
-    }
-    
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-    
-    return { 
-      days, 
-      hours, 
-      minutes, 
-      seconds,
-      mode,
-      targetDate: targetDate.toLocaleDateString('ru-RU', { 
-        day: 'numeric', 
-        month: 'long' 
-      })
-    };
+function calculateTimeLeft() {
+  // Тестовая дата (раскомментируйте для проверки):
+  // const now = new Date(2026, 7, 31, 23, 59, 55); // 31 авг 2026, 23:59:55
+  // const now = new Date(2026, 8, 1, 0, 0, 1);     // 1 сен 2026, 00:00:01
+  // const now = new Date(2026, 8, 2, 10, 0, 0);    // 2 сен 2026, 10:00
+  const now = new Date();
+
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth(); // 0-11
+  const currentDay = now.getDate();
+
+  // Границы текущего года
+  const juneFirst = new Date(currentYear, 5, 1);       // 1 июня
+  const septemberFirst = new Date(currentYear, 8, 1);  // 1 сентября
+
+  let targetDate;
+  let mode;
+  let showMessage = false;
+
+  // ============ ОПРЕДЕЛЯЕМ РЕЖИМ ПО ДАТЕ ============
+  
+  if (currentMonth === 5 && currentDay === 1) {
+    // === 1 июня — день начала каникул ===
+    showMessage = true;
+    mode = 'vacation';
+    targetDate = septemberFirst;
+  } 
+  else if (
+    (currentMonth === 5 && currentDay >= 2) || // 2–30 июня
+    currentMonth === 6 ||                       // июль
+    currentMonth === 7                          // август
+  ) {
+    // === Летние каникулы (2 июня – 31 августа) ===
+    mode = 'vacation';
+    targetDate = septemberFirst;
+  } 
+  else {
+    // === Всё остальное время (сентябрь – май) ===
+    mode = 'summer';
+    // Если 1 июня текущего года уже прошло — берём следующий год
+    targetDate = now < juneFirst 
+      ? juneFirst 
+      : new Date(currentYear + 1, 5, 1);
   }
+
+  // ============ ЗАЩИТА ОТ ОТРИЦАТЕЛЬНЫХ ЗНАЧЕНИЙ ============
+  
+  let difference = targetDate - now;
+
+  if (difference < 0) {
+    // Пересчитываем для следующего периода
+    if (mode === 'vacation') {
+      // Каникулы закончились — переходим к отсчёту до следующего лета
+      mode = 'summer';
+      targetDate = new Date(currentYear + 1, 5, 1);
+    } else {
+      // Прошло 1 июня следующего года — переходим к отсчёту до сентября
+      mode = 'vacation';
+      targetDate = new Date(currentYear + 1, 8, 1);
+    }
+    difference = targetDate - now;
+  }
+
+  // ============ РАСЧЁТ ЕДИНИЦ ВРЕМЕНИ ============
+  
+  const days = Math.max(0, Math.floor(difference / (1000 * 60 * 60 * 24)));
+  const hours = Math.max(0, Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+  const minutes = Math.max(0, Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)));
+  const seconds = Math.max(0, Math.floor((difference % (1000 * 60)) / 1000));
+
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    mode,
+    targetDate: targetDate.toLocaleDateString('ru-RU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }),
+    showMessage,
+  };
+}
 
   useEffect(() => {
     const timer = setInterval(() => {
