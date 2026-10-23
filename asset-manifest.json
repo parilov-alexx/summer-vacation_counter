@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/summer-vacation_counter/static/css/main.adeca6c6.css",
-    "main.js": "/summer-vacation_counter/static/js/main.6ede7098.js",
+    "main.js": "/summer-vacation_counter/static/js/main.7040686c.js",
     "static/media/september.jpg": "/summer-vacation_counter/static/media/september.d955ee4dce2ba59c44e9.jpg",
     "static/media/june.jpg": "/summer-vacation_counter/static/media/june.8f66507d58fb0e9159d3.jpg",
     "static/media/holiday.jpg": "/summer-vacation_counter/static/media/holiday.4d5f43c18b37f4c83c50.jpg",
@@ -17,10 +17,10 @@
     "static/media/november.jpg": "/summer-vacation_counter/static/media/november.fe50fc670b8408c415f5.jpg",
     "index.html": "/summer-vacation_counter/index.html",
     "main.adeca6c6.css.map": "/summer-vacation_counter/static/css/main.adeca6c6.css.map",
-    "main.6ede7098.js.map": "/summer-vacation_counter/static/js/main.6ede7098.js.map"
+    "main.7040686c.js.map": "/summer-vacation_counter/static/js/main.7040686c.js.map"
   },
   "entrypoints": [
     "static/css/main.adeca6c6.css",
-    "static/js/main.6ede7098.js"
+    "static/js/main.7040686c.js"
   ]
 }
